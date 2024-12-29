@@ -1,30 +1,49 @@
-"use client"
-import { useUser } from '@clerk/nextjs';
-import React, { useEffect } from 'react'
-import { ReactNode } from 'react';
-import axios from 'axios';
+"use client";
+import { useUser } from "@clerk/nextjs";
+import React, { useEffect } from "react";
+import { ReactNode } from "react";
+import axios from "axios";
 
 interface ProviderProps {
   children: ReactNode;
 }
 
-function provider({ children }: ProviderProps) {
-  const user = useUser();
+function Provider({ children }: ProviderProps) {
+ 
+  const { user, isLoaded } = useUser();
+
   useEffect(() => {
-    user && saveUserInfo();
-  }, [user]);
+    if (isLoaded && user) {
+      saveUserInfo();
+    }
+  }, [isLoaded, user]);
 
   const saveUserInfo = async () => {
-   const result = await axios.post("/api/user", {
-     user: user,
-   });
-   console.log(result);
-  }
-  return (
-    <div>
-        {children}
-    </div>
-  )
+    try {
+      
+      const userData = {
+        fullName: user?.fullName ?? "",
+        primaryEmailAddress: {
+          emailAddress: user?.primaryEmailAddress?.emailAddress ?? "",
+        },
+      };
+
+      const response = await axios.post("/api/user", userData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log("User saved successfully:", response.data);
+    } catch (error) {
+      console.error("Error saving user:", error);
+      if (axios.isAxiosError(error)) {
+        console.error("Error details:", error.response?.data);
+      }
+    }
+  };
+
+  return <div>{children}</div>;
 }
 
-export default provider
+export default Provider; 
