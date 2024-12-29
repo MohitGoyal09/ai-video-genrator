@@ -7,6 +7,8 @@ function Dashboardlayout({children} : {children: React.ReactNode}) {
     <SidebarProvider>
       <AppSidebar />
       <main>
+        
+        
         {children}
       </main>
     </SidebarProvider>
