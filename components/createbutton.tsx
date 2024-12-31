@@ -40,7 +40,7 @@ export default function CreateButton() {
                 </div>
               </Link>
               
-              <Link href={'/create-manual-video'} className="w-full">
+              <Link href={'/editor'} className="w-full">
                 <div className="h-full border-2 rounded-xl p-8 shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer bg-white hover:border-green-500 group">
                   <div className="flex flex-col items-center">
                     <Video size={70} className="mb-6 text-green-500 group-hover:animate-bounce" />

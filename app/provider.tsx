@@ -1,21 +1,22 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
-import React, { useEffect } from "react";
-import { ReactNode } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { UserDetailContext, UserDetail } from "./_context/UserDetailContext";
+import { VideoFramesContext, VideoFrame } from "./_context/VideoFramesContext";
 
-interface ProviderProps {
-  children: ReactNode;
-}
-
-function Provider({ children }: ProviderProps) {
+function Provider({ children }: { children: React.ReactNode }) {
   const { user, isLoaded } = useUser();
-  const [userDetail, setUserDetail] = React.useState<UserDetail>({
+  const [userDetail, setUserDetail] = useState<UserDetail>({
     name: "",
     image: null,
     email: "",
     credits: 0,
+  });
+  const [videoFrames, setVideoFrames] = useState<VideoFrame>({
+    totalDuration: 0,
+    frames: [],
+    selectedFrame: 0,
   });
 
   useEffect(() => {
@@ -35,7 +36,6 @@ function Provider({ children }: ProviderProps) {
             },
           });
 
-         
           setUserDetail(response.data);
           console.log("User details fetched/updated:", response.data);
         } catch (error) {
@@ -52,7 +52,9 @@ function Provider({ children }: ProviderProps) {
 
   return (
     <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
-      {children}
+      <VideoFramesContext.Provider value={{ videoFrames, setVideoFrames }}>
+        {children}
+      </VideoFramesContext.Provider>
     </UserDetailContext.Provider>
   );
 }
