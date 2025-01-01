@@ -17,10 +17,15 @@ const TextArea: React.FC<TextAreaProps> = ({ frame, handleInputChange }) => {
     handleInputChange('text', e.target.value);
   };
 
+  if (!frame) {
+    return null; 
+  }
+
   return (
     <Textarea
-      value={frame.text}
+      value={frame.text || ''}
       onChange={onChange}
+      style={{ color: frame.textColor, fontSize: frame.fontsize }}
     />
   );
 };
