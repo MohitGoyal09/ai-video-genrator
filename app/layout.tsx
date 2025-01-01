@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
-import { Outfit} from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import Provider from "./provider";
+import { Toaster } from "@/components/ui/sonner";
 
-const outfit = Outfit({subsets: ["latin", "latin-ext"]});
+const outfit = Outfit({ subsets: ["latin", "latin-ext"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,7 +22,7 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <body className={outfit.className}>
           <Provider>{children}</Provider>
-          
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>

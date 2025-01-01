@@ -45,6 +45,13 @@ export default function TrackList() {
           selectedFrame: selectedFrame
        })
   }, [framelists , selectedFrame])
+
+  useEffect(() => {
+    if (videoFrames.frames.length > 0 && videoFrames.frames !== framelists) {
+      setFramelists(videoFrames.frames);
+      setSelectedFrame(videoFrames.selectedFrame);
+    }
+  }, [videoFrames]);
   return (
     <div className="bg-gray-100 rounded-xl shadow-md p-6">
       <div className="max-h-[60vh] overflow-y-auto scroll-smooth pr-4 space-y-4">
