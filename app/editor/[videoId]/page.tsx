@@ -2,6 +2,7 @@
 import RemotionPlayer from "@/components/editor/RemotionPlayer";
 import SaveVideo from "@/components/editor/SaveVideo";
 import TrackList from "@/components/editor/tracklist";
+import FrameConifg from "@/components/editor/FrameConfig";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import React from "react";
@@ -24,7 +25,9 @@ export default function Editor() {
           <div className="col-span-3">
             <RemotionPlayer />
           </div>
-          <div className="col-span-2">Control Section</div>
+          <div className="col-span-2">
+            <FrameConifg />
+          </div>
         </div>
       </div>
     </div>
